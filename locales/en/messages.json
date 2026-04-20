@@ -6027,6 +6027,10 @@
         "message": "NTSC",
         "description": "Option for the video format in the OSD"
     },
+    "osdSetupVideoFormatOptionHd": {
+        "message": "HD",
+        "description": "Option for the video format in the OSD"
+    },
     "osdSetupUnitsTitle": {
         "message": "Units"
     },
@@ -6542,6 +6546,13 @@
     },
     "osdDescElementDisplayName": {
         "message": "Display name as set by the \"display_name\" cli command"
+    },
+    "osdTextElementPilotName": {
+        "message": "Pilot name",
+        "description": "One of the elements of the OSD"
+    },
+    "osdDescElementPilotName": {
+        "message": "Pilot name as reported by firmware"
     },
     "osdTextElementEscRpmFreq": {
         "message": "ESC RPM frequency",

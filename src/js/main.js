@@ -38,6 +38,25 @@ export function appReady() {
     });
 }
 
+function setupDevToolsShortcut() {
+    if (!GUI.isNWJS()) {
+        return;
+    }
+
+    document.addEventListener('keydown', function (event) {
+        const isF12 = event.key === 'F12';
+        const isInspectorCombo = event.ctrlKey && event.shiftKey && (event.key === 'I' || event.key === 'J');
+
+        if (!isF12 && !isInspectorCombo) {
+            return;
+        }
+
+        event.preventDefault();
+        const nwWindow = GUI.nwGui?.Window?.get();
+        nwWindow?.showDevTools();
+    });
+}
+
 function closeSerial() {
     // automatically close the port when application closes
     const connectionId = serial.connectionId;
@@ -107,6 +126,8 @@ function closeHandler() {
 
 //Process to execute to real start the app
 export function startProcess() {
+    setupDevToolsShortcut();
+
     // translate to user-selected language
     i18n.localizePage();
 
@@ -423,6 +444,7 @@ function notifyOutdatedVersion(releaseData) {
 export function updateTabList(features) {
     $('#tabs ul.mode-connected li.tab_gps').toggle(features.isEnabled('GPS'));
     $('#tabs ul.mode-connected li.tab_led_strip').toggle(features.isEnabled('LED_STRIP'));
+    $('#tabs ul.mode-connected li.tab_osd').toggle(features.isEnabled('OSD'));
 }
 
 function zeroPad(value, width) {

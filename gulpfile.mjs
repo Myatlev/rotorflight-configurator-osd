@@ -68,7 +68,14 @@ function clean_redist() {
 }
 
 function build_bundle() {
-  return gulp.series(clean_bundle, bundle_vite, bundle_src, bundle_deps);
+  return gulp.series(
+    clean_bundle,
+    bundle_vite,
+    bundle_src,
+    bundle_static_assets,
+    bundle_fontawesome,
+    bundle_deps,
+  );
 }
 
 function bundle_vite() {
@@ -93,6 +100,36 @@ function bundle_src() {
     .pipe(gulp.src(distSources, { base: "." }))
     .pipe(gulp.src(["pnpm-lock.yaml", "pnpm-workspace.yaml"]))
     .pipe(gulp.dest(BUNDLE_DIR));
+}
+
+function bundle_fontawesome() {
+  return gulp
+    .src(
+      [
+        "./node_modules/@fortawesome/fontawesome-free/css/all.min.css",
+        "./node_modules/@fortawesome/fontawesome-free/webfonts/fa-solid-*.eot",
+        "./node_modules/@fortawesome/fontawesome-free/webfonts/fa-solid-*.svg",
+        "./node_modules/@fortawesome/fontawesome-free/webfonts/fa-solid-*.ttf",
+        "./node_modules/@fortawesome/fontawesome-free/webfonts/fa-solid-*.woff",
+        "./node_modules/@fortawesome/fontawesome-free/webfonts/fa-solid-*.woff2",
+      ],
+      { base: "./node_modules/@fortawesome/fontawesome-free" },
+    )
+    .pipe(gulp.dest(`${BUNDLE_DIR}/fontawesome`));
+}
+
+async function bundle_static_assets() {
+  const mappings = [
+    { src: "./locales", dst: `${BUNDLE_DIR}/locales` },
+    { src: "./libraries", dst: `${BUNDLE_DIR}/libraries` },
+    { src: "./resources", dst: `${BUNDLE_DIR}/resources` },
+    { src: "./src/images", dst: `${BUNDLE_DIR}/images` },
+  ];
+
+  for (const { src, dst } of mappings) {
+    await fs.rm(dst, { recursive: true, force: true });
+    await fs.cp(src, dst, { recursive: true, force: true });
+  }
 }
 
 function bundle_deps() {

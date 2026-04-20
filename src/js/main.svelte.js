@@ -1,5 +1,6 @@
 import "multiple-select";
 import { mount } from "svelte";
+import semver from "semver";
 
 import { Beepers } from "@/js/Beepers.js";
 import { CliAutoComplete } from "@/js/CliAutoComplete.js";
@@ -7,6 +8,7 @@ import { ConfigInserter } from "@/js/ConfigInserter.js";
 import { DarkTheme } from "@/js/DarkTheme.js";
 import { Features } from "@/js/features.svelte.js";
 import { FirmwareCache } from "@/js/FirmwareCache.js";
+import "@/js/LogoManager.js";
 import { Mixer } from "@/js/Mixer.js";
 import * as backupRestore from "@/js/backup_restore.js";
 import * as configurator from "@/js/configurator.svelte.js";
@@ -74,6 +76,7 @@ Object.assign(globalThis, {
   i18n,
   portUsage,
   serial,
+  semver,
   usbDevices,
 });
 

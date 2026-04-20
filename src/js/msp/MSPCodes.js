@@ -155,6 +155,9 @@ export const MSPCodes = {
     MSP_BEEPER_CONFIG:              184,
     MSP_SET_BEEPER_CONFIG:          185,
 
+    MSP_SET_OSD_CANVAS:             188,
+    MSP_OSD_CANVAS:                 189,
+
     MSP_MIXER_OVERRIDE:             190,
     MSP_SET_MIXER_OVERRIDE:         191,
     MSP_SERVO_OVERRIDE:             192,

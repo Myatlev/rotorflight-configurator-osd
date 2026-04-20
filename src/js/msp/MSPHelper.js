@@ -1649,6 +1649,25 @@ MspHelper.prototype.process_data = function(dataHandler) {
                 console.log('Telemetry config saved');
                 break;
             }
+            case MSPCodes.MSP_OSD_CANVAS: {
+                const cols = data.readU8();
+                const rows = data.readU8();
+                const osd = globalThis.OSD;
+
+                // MSP traffic can arrive before the OSD tab module is initialized.
+                // In that case keep parsing the frame, but skip touching OSD globals.
+                if (osd?.data?.VIDEO_COLS && osd?.data?.VIDEO_ROWS && osd?.data?.VIDEO_BUFFER_CHARS) {
+                    osd.data.VIDEO_COLS.HD = cols;
+                    osd.data.VIDEO_ROWS.HD = rows;
+                    osd.data.VIDEO_BUFFER_CHARS.HD = cols * rows;
+                    console.log(`Canvas ${cols} x ${rows}`);
+                }
+                break;
+            }
+            case MSPCodes.MSP_SET_OSD_CANVAS: {
+                console.log('OSD Canvas config set');
+                break;
+            }
             case MSPCodes.MSP_OSD_CONFIG: {
                 break;
             }
@@ -1750,7 +1769,11 @@ MspHelper.prototype.process_data = function(dataHandler) {
                 break;
 
         } else {
-            console.log('FC reports unsupported message error: ' + code);
+            // Older firmware doesn't implement MSP_OSD_CANVAS (189); this is expected
+            // and the OSD tab already falls back to MSP_OSD_CONFIG only.
+            if (code !== MSPCodes.MSP_OSD_CANVAS) {
+                console.log('FC reports unsupported message error: ' + code);
+            }
 
             if (code === MSPCodes.MSP_SET_REBOOT) {
                 TABS.blackbox.mscRebootFailedCallback();

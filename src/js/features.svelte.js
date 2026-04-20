@@ -23,7 +23,7 @@ export class Features {
 
   static GROUPS = {
     RX_PROTO: ["RX_PPM", "RX_SERIAL", "RX_PARALLEL_PWM", "RX_MSP", "RX_SPI"],
-    OTHER: ["GPS", "LED_STRIP", "CMS"],
+    OTHER: ["GPS", "LED_STRIP", "OSD", "CMS"],
     RSSI: ["RSSI_ADC"],
   };
 

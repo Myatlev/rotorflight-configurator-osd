@@ -40,6 +40,7 @@ export const GuiControl = function () {
         'beepers',
         'gps',
         'led_strip',
+        'osd',
         'blackbox',
         'modes',
         'motors',
