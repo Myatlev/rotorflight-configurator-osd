@@ -19,6 +19,28 @@ const API_VERSION_1_45 = "12.9.0";
 const API_VERSION_1_46 = "12.9.0";
 const API_VERSION_1_47 = "12.9.0";
 
+const OSD_DISPLAYPORT_DEVICE_NONE = 0;
+const OSD_DISPLAYPORT_DEVICE_AUTO = 1;
+const OSD_DISPLAYPORT_DEVICE_MAX7456 = 2;
+const OSD_DISPLAYPORT_DEVICE_MSP = 3;
+const OSD_DISPLAYPORT_DEVICE_FRSKYOSD = 4;
+
+const OSD_UART_NAMES = {
+    0: 'UART1',
+    1: 'UART2',
+    2: 'UART3',
+    3: 'UART4',
+    4: 'UART5',
+    5: 'UART6',
+    6: 'UART7',
+    7: 'UART8',
+    8: 'UART9',
+    9: 'UART10',
+    20: 'USB VCP',
+    30: 'SOFTSERIAL1',
+    31: 'SOFTSERIAL2',
+};
+
 const FONT = {};
 const SYM = {};
 const OSD = {};
@@ -317,6 +339,11 @@ OSD.initData = function() {
         preview: [],
         tooltips: [],
         osd_profiles: {},
+        displayport: {
+            device: OSD_DISPLAYPORT_DEVICE_AUTO,
+            serial: -1,
+            supported: false,
+        },
         VIDEO_COLS: {
             PAL: 30,
             NTSC: 30,
@@ -1265,6 +1292,105 @@ OSD.loadDisplayFields = function() {
             positionable: true,
             preview: `${FONT.symbol(SYM.RSSI)}250MW`,
         },
+        SYS_GOGGLE_VOLTAGE: {
+            name: 'SYS_GOGGLE_VOLTAGE',
+            text: 'osdTextElementSysGoggleVoltage',
+            desc: 'osdDescElementSysGoggleVoltage',
+            defaultPosition: -1,
+            draw_order: 475,
+            positionable: true,
+            preview: 'G 16.8V',
+        },
+        SYS_VTX_VOLTAGE: {
+            name: 'SYS_VTX_VOLTAGE',
+            text: 'osdTextElementSysVtxVoltage',
+            desc: 'osdDescElementSysVtxVoltage',
+            defaultPosition: -1,
+            draw_order: 480,
+            positionable: true,
+            preview: 'A 12.6V',
+        },
+        SYS_BITRATE: {
+            name: 'SYS_BITRATE',
+            text: 'osdTextElementSysBitrate',
+            desc: 'osdDescElementSysBitrate',
+            defaultPosition: -1,
+            draw_order: 485,
+            positionable: true,
+            preview: '50MBPS',
+        },
+        SYS_DELAY: {
+            name: 'SYS_DELAY',
+            text: 'osdTextElementSysDelay',
+            desc: 'osdDescElementSysDelay',
+            defaultPosition: -1,
+            draw_order: 490,
+            positionable: true,
+            preview: '24.5MS',
+        },
+        SYS_DISTANCE: {
+            name: 'SYS_DISTANCE',
+            text: 'osdTextElementSysDistance',
+            desc: 'osdDescElementSysDistance',
+            defaultPosition: -1,
+            draw_order: 495,
+            positionable: true,
+            preview: `10${FONT.symbol(SYM.METRE)}`,
+        },
+        SYS_LQ: {
+            name: 'SYS_LQ',
+            text: 'osdTextElementSysLQ',
+            desc: 'osdDescElementSysLQ',
+            defaultPosition: -1,
+            draw_order: 500,
+            positionable: true,
+            preview: `G${FONT.symbol(SYM.LINK_QUALITY)}100`,
+        },
+        SYS_GOGGLE_DVR: {
+            name: 'SYS_GOGGLE_DVR',
+            text: 'osdTextElementSysGoggleDVR',
+            desc: 'osdDescElementSysGoggleDVR',
+            defaultPosition: -1,
+            draw_order: 505,
+            positionable: true,
+            preview: `${FONT.symbol(SYM.ARROW_SMALL_RIGHT)}G DVR 8.4G`,
+        },
+        SYS_VTX_DVR: {
+            name: 'SYS_VTX_DVR',
+            text: 'osdTextElementSysVtxDVR',
+            desc: 'osdDescElementSysVtxDVR',
+            defaultPosition: -1,
+            draw_order: 510,
+            positionable: true,
+            preview: `${FONT.symbol(SYM.ARROW_SMALL_RIGHT)}A DVR 1.6G`,
+        },
+        SYS_WARNINGS: {
+            name: 'SYS_WARNINGS',
+            text: 'osdTextElementSysWarnings',
+            desc: 'osdDescElementSysWarnings',
+            defaultPosition: -1,
+            draw_order: 515,
+            positionable: true,
+            preview: 'VTX WARNINGS',
+        },
+        SYS_VTX_TEMP: {
+            name: 'SYS_VTX_TEMP',
+            text: 'osdTextElementSysVtxTemp',
+            desc: 'osdDescElementSysVtxTemp',
+            defaultPosition: -1,
+            draw_order: 520,
+            positionable: true,
+            preview: 'V45C',
+        },
+        SYS_FAN_SPEED: {
+            name: 'SYS_FAN_SPEED',
+            text: 'osdTextElementSysFanSpeed',
+            desc: 'osdDescElementSysFanSpeed',
+            defaultPosition: -1,
+            draw_order: 525,
+            positionable: true,
+            preview: 'FAN 100%',
+        },
     };
 };
 
@@ -1691,6 +1817,17 @@ OSD.chooseFields = function() {
                                                             F.TOTAL_FLIGHTS,
                                                             F.OSD_UP_DOWN_REFERENCE,
                                                             F.OSD_TX_UPLINK_POWER,
+                                                            F.SYS_GOGGLE_VOLTAGE,
+                                                            F.SYS_VTX_VOLTAGE,
+                                                            F.SYS_BITRATE,
+                                                            F.SYS_DELAY,
+                                                            F.SYS_DISTANCE,
+                                                            F.SYS_LQ,
+                                                            F.SYS_GOGGLE_DVR,
+                                                            F.SYS_VTX_DVR,
+                                                            F.SYS_WARNINGS,
+                                                            F.SYS_VTX_TEMP,
+                                                            F.SYS_FAN_SPEED,
                                                         ]);
                                                     }
                                                 }
@@ -1990,6 +2127,11 @@ OSD.msp = {
                     result.push8(OSD.data.parameters.cameraFrameHeight);
                 }
 
+                if (OSD.data.displayport.supported) {
+                    result.push8(OSD.data.displayport.device);
+                    result.push8(OSD.data.displayport.serial);
+                }
+
                 if (semver.gte(FC.CONFIG.apiVersion, API_VERSION_1_46)) {
                     result.push16(OSD.data.alarms.link_quality?.value ?? 0);
                 }
@@ -2001,6 +2143,43 @@ OSD.msp = {
             }
         }
         return result;
+    },
+    async saveDisplayPortSettings() {
+        await MSP.promise(MSPCodes.MSP_SET_OSD_CONFIG, OSD.msp.encodeOther());
+
+        if (!OSD.data.displayport.supported ||
+            OSD.data.displayport.device !== OSD_DISPLAYPORT_DEVICE_MSP ||
+            OSD.data.displayport.serial < 0 ||
+            CONFIGURATOR.virtualMode) {
+            return;
+        }
+
+        await MSP.promise(MSPCodes.MSP_SERIAL_CONFIG);
+
+        const port = FC.SERIAL_CONFIG.ports.find(
+            (serialPort) => serialPort.identifier === OSD.data.displayport.serial,
+        );
+
+        if (!port) {
+            return;
+        }
+
+        const mspFunctionMask = 1; // FUNCTION_MSP bit 0
+        let changed = false;
+
+        if ((port.functionMask & mspFunctionMask) === 0) {
+            port.functionMask |= mspFunctionMask;
+            changed = true;
+        }
+
+        if (!port.msp_baudrate || port.msp_baudrate === 'AUTO') {
+            port.msp_baudrate = '115200';
+            changed = true;
+        }
+
+        if (changed) {
+            await MSP.promise(MSPCodes.MSP_SET_SERIAL_CONFIG);
+        }
     },
     encodeLayout(displayItem) {
         if (CONFIGURATOR.virtualMode) {
@@ -2232,6 +2411,15 @@ OSD.msp = {
         if (semver.gte(FC.CONFIG.apiVersion, API_VERSION_1_43)) {
             d.parameters.cameraFrameWidth = view.readU8();
             d.parameters.cameraFrameHeight = view.readU8();
+        }
+
+        if (semver.gte(FC.CONFIG.apiVersion, API_VERSION_1_42)) {
+            d.displayport.supported = true;
+        }
+
+        if (view.bytesRemaining() >= 2) {
+            d.displayport.device = view.readU8();
+            d.displayport.serial = view.read8();
         }
 
         this.processOsdElements(d, itemsPositionsRead);
@@ -2495,6 +2683,75 @@ TABS.osd.initialize = function(callback) {
         $('.alarms-container div.cf_tip').attr('title', i18n.getMessage('osdSectionHelpAlarms'));
         $('.stats-container div.cf_tip').attr('title', i18n.getMessage('osdSectionHelpStats'));
         $('.warnings-container div.cf_tip').attr('title', i18n.getMessage('osdSectionHelpWarnings'));
+        $('.displayport-container div.cf_tip').attr('title', i18n.getMessage('osdSetupDisplayPortHelp'));
+
+        const DISPLAYPORT_DEVICE_OPTIONS = [
+            { id: OSD_DISPLAYPORT_DEVICE_NONE, key: 'osdSetupDisplayPortDeviceNone' },
+            { id: OSD_DISPLAYPORT_DEVICE_AUTO, key: 'osdSetupDisplayPortDeviceAuto' },
+            { id: OSD_DISPLAYPORT_DEVICE_MAX7456, key: 'osdSetupDisplayPortDeviceMax7456' },
+            { id: OSD_DISPLAYPORT_DEVICE_MSP, key: 'osdSetupDisplayPortDeviceMsp' },
+            { id: OSD_DISPLAYPORT_DEVICE_FRSKYOSD, key: 'osdSetupDisplayPortDeviceFrskyOsd' },
+        ];
+
+        function renderDisplayPortSettings() {
+            const $container = $('.displayport-container');
+            const $device = $('.displayport-device');
+            const $serial = $('.displayport-serial');
+
+            if (!OSD.data.state.haveOsdFeature) {
+                $container.hide();
+                return;
+            }
+
+            $container.show();
+
+            if ($device.children().length === 0) {
+                for (const option of DISPLAYPORT_DEVICE_OPTIONS) {
+                    $device.append($('<option/>', {
+                        value: option.id,
+                        text: i18n.getMessage(option.key),
+                    }));
+                }
+
+                $serial.append($('<option/>', {
+                    value: -1,
+                    text: i18n.getMessage('osdSetupDisplayPortSerialNone'),
+                }));
+
+                for (const serialPort of FC.SERIAL_CONFIG.ports) {
+                    if (serialPort.identifier === 20) {
+                        continue;
+                    }
+                    const label = OSD_UART_NAMES[serialPort.identifier] || `PORT ${serialPort.identifier}`;
+                    $serial.append($('<option/>', {
+                        value: serialPort.identifier,
+                        text: label,
+                    }));
+                }
+
+                $device.change(function() {
+                    OSD.data.displayport.device = parseInt($(this).val(), 10);
+                    const mspSelected = OSD.data.displayport.device === OSD_DISPLAYPORT_DEVICE_MSP;
+                    $serial.prop('disabled', !mspSelected);
+                    OSD.msp.saveDisplayPortSettings().then(() => updateOsdView());
+                });
+
+                $serial.change(function() {
+                    OSD.data.displayport.serial = parseInt($(this).val(), 10);
+                    OSD.msp.saveDisplayPortSettings().then(() => updateOsdView());
+                });
+            } else {
+                const mspSelected = OSD.data.displayport.device === OSD_DISPLAYPORT_DEVICE_MSP;
+                $serial.prop('disabled', !mspSelected);
+            }
+
+            if (OSD.data.displayport.supported) {
+                $device.val(OSD.data.displayport.device);
+                $serial.val(OSD.data.displayport.serial);
+            } else if (OSD.data.state.isMspDevice) {
+                $device.val(OSD_DISPLAYPORT_DEVICE_MSP);
+            }
+        }
 
         function titleizeField(field) {
             let finalFieldName = null;
@@ -2535,9 +2792,14 @@ TABS.osd.initialize = function(callback) {
             const fetchCanvas = semver.gte(FC.CONFIG.apiVersion, API_VERSION_1_45)
                 ? MSP.promise(MSPCodes.MSP_OSD_CANVAS).catch(() => null)
                 : Promise.resolve();
+            const fetchSerial = CONFIGURATOR.virtualMode
+                ? Promise.resolve()
+                : MSP.promise(MSPCodes.MSP_SERIAL_CONFIG).catch(() => null);
 
             // ask for the OSD config data
-            fetchCanvas.then(() => MSP.promise(MSPCodes.MSP_OSD_CONFIG))
+            fetchCanvas
+                .then(() => fetchSerial)
+                .then(() => MSP.promise(MSPCodes.MSP_OSD_CONFIG))
                 .then(function(info) {
 
                     OSD.chooseFields();
@@ -2804,6 +3066,8 @@ TABS.osd.initialize = function(callback) {
                     } else if (!OSD.data.state.haveMax7456Configured && !OSD.data.state.isMspDevice) {
                         $('.requires-max7456').hide();
                     }
+
+                    renderDisplayPortSettings();
 
                     if (!OSD.data.state.isMax7456FontDeviceDetected || !OSD.data.state.haveMax7456FontDeviceConfigured) {
                         $('.requires-max7456-font-device-detected').addClass('disabled');
@@ -3101,13 +3365,17 @@ TABS.osd.initialize = function(callback) {
         });
 
         $('a.save').click(function() {
-            MSP.promise(MSPCodes.MSP_EEPROM_WRITE);
-            GUI.log(i18n.getMessage('osdSettingsSaved'));
-            const oldText = $(this).html();
-            $(this).html(i18n.getMessage('osdButtonSaved'));
-            setTimeout(() => {
-                $(this).html(oldText);
-            }, 1500);
+            const $btn = $(this);
+            OSD.msp.saveDisplayPortSettings()
+                .then(() => MSP.promise(MSPCodes.MSP_EEPROM_WRITE))
+                .then(() => {
+                    GUI.log(i18n.getMessage('osdSettingsSaved'));
+                    const oldText = $btn.html();
+                    $btn.html(i18n.getMessage('osdButtonSaved'));
+                    setTimeout(() => {
+                        $btn.html(oldText);
+                    }, 1500);
+                });
         });
 
         // font preview window

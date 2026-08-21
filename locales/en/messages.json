@@ -6031,6 +6031,39 @@
         "message": "HD",
         "description": "Option for the video format in the OSD"
     },
+    "osdSetupDisplayPortTitle": {
+        "message": "DisplayPort (DJI / MSP)"
+    },
+    "osdSetupDisplayPortHelp": {
+        "message": "MSP DisplayPort is used for HD goggles such as DJI O4. Assign a UART with the MSP function enabled at 115200 baud."
+    },
+    "osdSetupDisplayPortDeviceLabel": {
+        "message": "OSD device"
+    },
+    "osdSetupDisplayPortSerialLabel": {
+        "message": "MSP DisplayPort UART"
+    },
+    "osdSetupDisplayPortSerialNote": {
+        "message": "Typical Nexus + DJI O4: UART6 for DisplayPort, UART4 for CRSF. Saving MSP mode enables MSP on the selected UART."
+    },
+    "osdSetupDisplayPortDeviceNone": {
+        "message": "None"
+    },
+    "osdSetupDisplayPortDeviceAuto": {
+        "message": "Auto"
+    },
+    "osdSetupDisplayPortDeviceMax7456": {
+        "message": "MAX7456"
+    },
+    "osdSetupDisplayPortDeviceMsp": {
+        "message": "MSP"
+    },
+    "osdSetupDisplayPortDeviceFrskyOsd": {
+        "message": "FrSky OSD"
+    },
+    "osdSetupDisplayPortSerialNone": {
+        "message": "None"
+    },
     "osdSetupUnitsTitle": {
         "message": "Units"
     },
