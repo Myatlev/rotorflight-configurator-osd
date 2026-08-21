@@ -55,6 +55,7 @@ export function MspHelper() {
         'FRSKY_OSD': 16,
         'SBUS_OUT': 18,
         'FBUS_OUT': 19,
+        'SPORT_MASTER': 20,
     };
 
     self.REBOOT_TYPES = {
@@ -350,6 +351,19 @@ MspHelper.prototype.process_data = function(dataHandler) {
 
             case MSPCodes.MSP_SET_BATTERY_CONFIG: {
                 console.log('Battery configuration saved');
+                break;
+            }
+
+            case MSPCodes.MSP2_SMARTFUEL_CONFIG: {
+                FC.SMARTFUEL_CONFIG.mode = data.readU8();
+                FC.SMARTFUEL_CONFIG.voltageDropRate = data.readU8();
+                FC.SMARTFUEL_CONFIG.chargeDropRate = data.readU8();
+                FC.SMARTFUEL_CONFIG.sagGain = data.readU8();
+                break;
+            }
+
+            case MSPCodes.MSP2_SET_SMARTFUEL_CONFIG: {
+                console.log('Smart Fuel configuration saved');
                 break;
             }
 
@@ -2011,6 +2025,14 @@ MspHelper.prototype.crunch = function(code) {
                     buffer.push16(FC.BATTERY_CONFIG.capacities[i]);
                 }
             }
+            break;
+        }
+
+        case MSPCodes.MSP2_SET_SMARTFUEL_CONFIG: {
+            buffer.push8(FC.SMARTFUEL_CONFIG.mode)
+                  .push8(FC.SMARTFUEL_CONFIG.voltageDropRate)
+                  .push8(FC.SMARTFUEL_CONFIG.chargeDropRate)
+                  .push8(FC.SMARTFUEL_CONFIG.sagGain);
             break;
         }
 

@@ -809,7 +809,7 @@
         "message": "Rotorflight documentation is available in release notes and website.<br /><br />"
     },
     "defaultDocumentation1": {
-        "message": "The Rotorflight website tutorial is a great resource for information, it can be found <a href=\"https://www.rotorflight.org/docs/2.2.0\" target=\"_blank\" rel=\"noopener noreferrer\">here</a>."
+        "message": "The Rotorflight website tutorial is a great resource for information, it can be found <a href=\"https://www.rotorflight.org/docs/2.3.0\" target=\"_blank\" rel=\"noopener noreferrer\">here</a>."
     },
     "defaultDocumentation2": {
         "message": "The latest news can be read at the Website Announcements page, <a href=\"https://www.rotorflight.org/announcement\" target=\"_blank\" rel=\"noopener noreferrer\">here</a>."
@@ -893,7 +893,7 @@
         "message": "Arming Allowed"
     },
     "statusArmingDisableFlagsTooltip": {
-        "message": "List of flags indicating why arming is currently not allowed. Pass the mouse over the flag or refer to the Website tutorial <a href=\"https://www.rotorflight.org/docs/2.2.0/setup/arming#arming-disable-flags\" target=\"_blank\" rel=\"noopener noreferrer\">(Arm Mode flags)</a> for more info."
+        "message": "List of flags indicating why arming is currently not allowed. Pass the mouse over the flag or refer to the Website tutorial <a href=\"https://www.rotorflight.org/docs/2.3.0/setup/arming#arming-disable-flags\" target=\"_blank\" rel=\"noopener noreferrer\">(Arm Mode flags)</a> for more info."
     },
     "statusArmingDisableFlagsTooltipNO_GYRO": {
         "message": "A gyro was not detected",
@@ -1547,6 +1547,9 @@
     "portsFunction_TELEMETRY_SMARTPORT": {
         "message": "Telemetry: FrSky SmartPort"
     },
+    "portsFunction_SPORT_MASTER": {
+        "message": "S.PORT Master"
+    },
     "portsFunction_TELEMETRY_IBUS": {
         "message": "Telemetry: FlySky iBUS"
     },
@@ -1740,6 +1743,12 @@
     "receiverSettingsThrottleChannel": {
         "message": "Throttle Channel"
     },
+    "receiver.channel_range.automatic_throttle_range.label": {
+        "message": "Automatic Throttle Range"
+    },
+    "receiver.channel_range.automatic_throttle_range.help": {
+        "message": "Calculates a suitable throttle range from the Stick Center and Stick Travel values."
+    },
     "receiverProtocol": {
         "message": "Receiver Protocol"
     },
@@ -1789,7 +1798,7 @@
         "message": "The throttle channel value where throttle is considered 0%."
     },
     "receiverHelpZeroThrottle2": {
-        "message": "<p>The throttle channel value where throttle is considered 0%. Set to 0 to set automatically.</p><p><strong>Note:</strong> The throttle channel must be able to move at least 10µs below this value to signal throttle off and allow arming.</p>"
+        "message": "<p>The throttle channel value where throttle is considered 0%.</p><p><strong>Note:</strong> The throttle channel must be able to move at least 10µs below this value to signal throttle off and allow arming.</p>"
     },
     "receiverFullThrottle": {
         "message": "Max Throttle - 100%"
@@ -1798,7 +1807,7 @@
         "message": "The throttle channel value where throttle is considered 100%."
     },
     "receiverHelpFullThrottle2": {
-        "message": "The throttle channel value where throttle is considered 100%. Set to 0 to set automatically."
+        "message": "The throttle channel value where throttle is considered 100%."
     },
     "receiverCyclicDeadband": {
         "message": "Cyclic Deadband"
@@ -3259,6 +3268,9 @@
     "gpsSignalQty": {
         "message": "Qty"
     },
+    "motors.motor.heading": {
+        "message": "Motor #{{index}}"
+    },
     "motorsSectionLabelThrottle": {
         "message": "Throttle"
     },
@@ -4262,7 +4274,7 @@
         "message": "<strong>Recovery / Lost communication</strong>"
     },
     "firmwareFlasherRecoveryText": {
-        "message": "If you have lost communication with your board follow these steps to restore communication: <ul><li>Power off</li><li>Enable 'No reboot sequence', enable 'Full chip erase'.</li><li>Jumper the BOOT pins or hold BOOT button.</li><li>Power on (activity LED will NOT flash if done correctly).</li><li>Install all STM32 drivers and Zadig if required (see <a href=\"https://www.rotorflight.org/docs/2.2.0/setup/flashing-the-firmware\"target=\"_blank\" rel=\"noopener noreferrer\">USB Flashing</a> section of the manual).</li><li>Close configurator, Restart Configurator.</li><li>Release BOOT button if your FC has one.</li><li>Flash with correct firmware (using manual baud rate if specified in your FC's manual).</li><li>Power off.</li><li>Remove BOOT jumper.</li><li>Power on (activity LED should flash).</li><li>Connect normally.</li></ul>"
+        "message": "If you have lost communication with your board follow these steps to restore communication: <ul><li>Power off</li><li>Enable 'No reboot sequence', enable 'Full chip erase'.</li><li>Jumper the BOOT pins or hold BOOT button.</li><li>Power on (activity LED will NOT flash if done correctly).</li><li>Install all STM32 drivers and Zadig if required (see <a href=\"https://www.rotorflight.org/docs/2.3.0/setup/flashing-the-firmware\"target=\"_blank\" rel=\"noopener noreferrer\">USB Flashing</a> section of the manual).</li><li>Close configurator, Restart Configurator.</li><li>Release BOOT button if your FC has one.</li><li>Flash with correct firmware (using manual baud rate if specified in your FC's manual).</li><li>Power off.</li><li>Remove BOOT jumper.</li><li>Power on (activity LED should flash).</li><li>Connect normally.</li></ul>"
     },
     "firmwareFlasherFirmwareNotLoaded": {
         "message": "Firmware not loaded"
@@ -5742,6 +5754,45 @@
     },
     "powerBatteryCurrentMeterTypeMsp": {
         "message": "MSP Sensor"
+    },
+    "powerSmartFuelHead": {
+        "message": "Smart Fuel"
+    },
+    "powerSmartFuelSource": {
+        "message": "Smart Fuel Mode"
+    },
+    "powerSmartFuelSourceHelp": {
+        "message": "<p><strong>Off:</strong> Smart Fuel is disabled.</p><p><strong>Voltage:</strong> estimates charge from pack voltage.</p><p><strong>Current:</strong> uses measured mAh consumed against the configured battery capacity.</p><p><strong>Combined:</strong> uses the more pessimistic of the voltage estimate and current consumption.</p><p>A configured battery voltage sensor is required for enabled Smart Fuel modes.</p>"
+    },
+    "powerSmartFuelSourceTypeNone": {
+        "message": "Off"
+    },
+    "powerSmartFuelSourceTypeCurrent": {
+        "message": "Current"
+    },
+    "powerSmartFuelSourceTypeVoltage": {
+        "message": "Voltage"
+    },
+    "powerSmartFuelSourceTypeCombined": {
+        "message": "Combined"
+    },
+    "powerSmartFuelVoltageDropRate": {
+        "message": "Smart Fuel Voltage Drop Rate"
+    },
+    "powerSmartFuelVoltageDropRateHelp": {
+        "message": "Limits how quickly the voltage track may fall. This setting is only used in Voltage and Combined modes."
+    },
+    "powerSmartFuelChargeDropRate": {
+        "message": "Smart Fuel Charge Drop Rate"
+    },
+    "powerSmartFuelChargeDropRateHelp": {
+        "message": "Limits how quickly the reported charge percentage may drop on the voltage track once the model is armed or has been armed. This setting is only used in Voltage and Combined modes."
+    },
+    "powerSmartFuelSagGain": {
+        "message": "Smart Fuel Sag Gain"
+    },
+    "powerSmartFuelSagGainHelp": {
+        "message": "Compensates for voltage sag under load. Increase if Smart Fuel is too pessimistic under load; decrease if it is too optimistic. This setting is only used in Voltage and Combined modes."
     },
     "powerBatteryMinimumCellVoltage": {
         "message": "Minimum Cell Voltage"
@@ -7560,6 +7611,15 @@
     },
     "mode RESCUE": {
         "message": "RESCUE"
+    },
+    "mode GOVERNOR FALLBACK": {
+        "message": "GOVERNOR FALLBACK"
+    },
+    "mode GOVERNOR SUSPEND": {
+        "message": "GOVERNOR SUSPEND"
+    },
+    "mode GOVERNOR BYPASS": {
+        "message": "GOVERNOR BYPASS"
     },
     "flashTab": {
         "message": "Update Firmware"

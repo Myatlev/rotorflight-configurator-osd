@@ -72,6 +72,12 @@ tab.initialize = function (callback) {
 
         self.isDirty = false;
 
+        const hasExtendedServoScale = semver.gte(FC.CONFIG.apiVersion, API_VERSION_12_9);
+        if (hasExtendedServoScale) {
+            $('.servoConfigTemplate .servo-rneg input').attr('min', 50);
+            $('.servoConfigTemplate .servo-rpos input').attr('min', 50);
+        }
+
         // Check for API 12.9+ for extended servo support
         const supportsBusServos = semver.gte(FC.CONFIG.apiVersion, API_VERSION_12_9);
         const maxServos = supportsBusServos ? self.MAX_SERVOS_12_9 : self.MAX_SERVOS;
@@ -122,7 +128,8 @@ tab.initialize = function (callback) {
                     // Unusual: value > 300 ± 25%
                     if (servo.min < -375 || servo.min > -150 || servo.max > 375 || servo.max <  150)
                         unusualLimit = true;
-                    if (servo.rneg < 150 || servo.rneg > 375 || servo.rpos < 150 || servo.rpos > 375)
+                    const scaleMin = hasExtendedServoScale ? 50 : 150;
+                    if (servo.rneg < scaleMin || servo.rneg > 375 || servo.rpos < scaleMin || servo.rpos > 375)
                         unusualScale = true;
                 }
             }
@@ -424,8 +431,8 @@ tab.initialize = function (callback) {
                     rangeMax = 1460;
                 } else {
                     // 1520us
-                    rangeMin = 750;
-                    rangeMax = 2250;
+                    rangeMin = 500;
+                    rangeMax = 2500;
                 }
 
                 const range  = rangeMax - rangeMin;
