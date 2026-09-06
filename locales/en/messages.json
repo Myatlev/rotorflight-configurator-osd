@@ -8019,5 +8019,101 @@
     },
     "presetsDontShowAgain": {
         "message": "Don't show again"
+    },
+    "osdTextElementTxUplinkPower": {
+        "message": "Tx uplink power",
+        "description": "One of the elements of the OSD"
+    },
+    "osdDescTxUplinkPower": {
+        "message": "Transmitter uplink (RF) power reported by the receiver link",
+        "description": "Description of one of the elements of the OSD"
+    },
+    "osdTextElementSysGoggleVoltage": {
+        "message": "Goggle voltage",
+        "description": "One of the elements of the OSD"
+    },
+    "osdDescElementSysGoggleVoltage": {
+        "message": "HD system element: goggles battery voltage (drawn by the goggles)",
+        "description": "Description of one of the elements of the OSD"
+    },
+    "osdTextElementSysVtxVoltage": {
+        "message": "VTX voltage",
+        "description": "One of the elements of the OSD"
+    },
+    "osdDescElementSysVtxVoltage": {
+        "message": "HD system element: air unit / VTX input voltage (drawn by the goggles)",
+        "description": "Description of one of the elements of the OSD"
+    },
+    "osdTextElementSysBitrate": {
+        "message": "Bitrate",
+        "description": "One of the elements of the OSD"
+    },
+    "osdDescElementSysBitrate": {
+        "message": "HD system element: video link bitrate (drawn by the goggles)",
+        "description": "Description of one of the elements of the OSD"
+    },
+    "osdTextElementSysDelay": {
+        "message": "Delay",
+        "description": "One of the elements of the OSD"
+    },
+    "osdDescElementSysDelay": {
+        "message": "HD system element: video link latency (drawn by the goggles)",
+        "description": "Description of one of the elements of the OSD"
+    },
+    "osdTextElementSysDistance": {
+        "message": "Distance",
+        "description": "One of the elements of the OSD"
+    },
+    "osdDescElementSysDistance": {
+        "message": "HD system element: distance from goggles to air unit (drawn by the goggles)",
+        "description": "Description of one of the elements of the OSD"
+    },
+    "osdTextElementSysLQ": {
+        "message": "Link quality",
+        "description": "One of the elements of the OSD"
+    },
+    "osdDescElementSysLQ": {
+        "message": "HD system element: video link quality (drawn by the goggles)",
+        "description": "Description of one of the elements of the OSD"
+    },
+    "osdTextElementSysGoggleDVR": {
+        "message": "Goggle DVR",
+        "description": "One of the elements of the OSD"
+    },
+    "osdDescElementSysGoggleDVR": {
+        "message": "HD system element: goggles DVR recording status (drawn by the goggles)",
+        "description": "Description of one of the elements of the OSD"
+    },
+    "osdTextElementSysVtxDVR": {
+        "message": "VTX DVR",
+        "description": "One of the elements of the OSD"
+    },
+    "osdDescElementSysVtxDVR": {
+        "message": "HD system element: air unit DVR recording status (drawn by the goggles)",
+        "description": "Description of one of the elements of the OSD"
+    },
+    "osdTextElementSysWarnings": {
+        "message": "System warnings",
+        "description": "One of the elements of the OSD"
+    },
+    "osdDescElementSysWarnings": {
+        "message": "HD system element: goggles / air unit warnings (drawn by the goggles)",
+        "description": "Description of one of the elements of the OSD"
+    },
+    "osdTextElementSysVtxTemp": {
+        "message": "VTX temperature",
+        "description": "One of the elements of the OSD"
+    },
+    "osdDescElementSysVtxTemp": {
+        "message": "HD system element: air unit temperature (drawn by the goggles)",
+        "description": "Description of one of the elements of the OSD"
+    },
+    "osdTextElementSysFanSpeed": {
+        "message": "Fan speed",
+        "description": "One of the elements of the OSD"
+    },
+    "osdDescElementSysFanSpeed": {
+        "message": "HD system element: air unit fan speed (drawn by the goggles)",
+        "description": "Description of one of the elements of the OSD"
     }
 }

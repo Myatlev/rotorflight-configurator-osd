@@ -25,6 +25,9 @@ Array.prototype.push32 = function(val) {
 };
 
 DataView.prototype.offset = 0;
+DataView.prototype.bytesRemaining = function() {
+    return this.byteLength - this.offset;
+};
 DataView.prototype.readU8 = function() {
     if (this.byteLength >= this.offset+1) {
         return this.getUint8(this.offset++);
